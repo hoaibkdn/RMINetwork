@@ -1,4 +1,4 @@
-package rmi.network.client;
+package rmi.network.implement;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
@@ -49,7 +49,8 @@ public class ClientMessage extends JFrame {
 		this.messageArea.setWrapStyleWord(true);
 		this.messageArea.setLineWrap(true);
 		this.messageArea.setEditable(false);
-
+		messageArea.setCaretPosition(messageArea.getDocument().getLength());
+		
 //		DefaultCaret caret = (DefaultCaret) messageArea.getCaret();
 //		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 
@@ -57,7 +58,6 @@ public class ClientMessage extends JFrame {
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		this.scroll.setVisible(true);
-		messageArea.setCaretPosition(messageArea.getDocument().getLength());
 		this.scroll.setBounds(20, 50, 430, 250);
 
 		this.add(scroll);

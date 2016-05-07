@@ -1,4 +1,4 @@
-package rmi.network.client;
+package rmi.network.server.table;
 
 public class Computer {
 	

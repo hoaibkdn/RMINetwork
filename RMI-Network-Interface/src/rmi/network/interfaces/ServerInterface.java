@@ -14,6 +14,7 @@ public interface ServerInterface extends Remote{
 	void setInfoOnServer(String name, String ip, String status, String time)
 			throws RemoteException;
 
+	public void registerClient(ClientInterface clientInterface, String ip) throws RemoteException;
 	String getClientName(String clientName) throws RemoteException;
 
 	boolean isConnected(String ip) throws RemoteException;
@@ -23,8 +24,7 @@ public interface ServerInterface extends Remote{
 
 	public void removeClientListener(String ip) throws java.rmi.RemoteException;
 
-	public String showClientMessage(String ipAddress, String message)
+	public void showClientMessage(String ipAddress, String message)
 			throws RemoteException;
 	
-	public void updateInforClient(String name, String ip, String status, String time)throws RemoteException;
 }

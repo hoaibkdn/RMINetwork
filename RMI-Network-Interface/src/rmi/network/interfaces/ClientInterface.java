@@ -21,11 +21,9 @@ public interface ClientInterface extends Remote {
 
 	void setClientInfo(String status) throws RemoteException;
 
-	String showServerMessage(String message) throws RemoteException;
+	public void showServerMessage(String message) throws RemoteException;
 
 	void setTime(int status) throws RemoteException;
-
-	ImageIcon sendImages() throws RemoteException;
 	
 	public client getClient() throws RemoteException;
 }
