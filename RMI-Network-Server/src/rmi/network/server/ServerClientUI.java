@@ -467,7 +467,8 @@ public class ServerClientUI extends UnicastRemoteObject implements ServerInterfa
 	}
 	@Override
 	public boolean isConnected(String ip) throws RemoteException {
-		return false;
+		if(listenersList.get(ip)!= null) return true;
+		else return false;
 	}
 	@Override
 	public void addClientListener(ClientInterface listener, String ip) throws RemoteException {
@@ -634,6 +635,11 @@ public class ServerClientUI extends UnicastRemoteObject implements ServerInterfa
 	@Override
 	public void registerClient(ClientInterface clientInterface, String ip) throws RemoteException {
 		listenersList.put(ip, clientInterface);
+	}
+
+	@Override
+	public boolean checkConnectRequest() throws RemoteException {
+		return clientConnect.checkConnect();
 	}
 	
 	

@@ -58,7 +58,7 @@ public class ClientUI extends UnicastRemoteObject implements ClientInterface {
 	private client aclient;
 	static int port = 1990;
 	private String host;
-	
+	private static boolean isconnected = false;
 	
 	
 	private static final int NAME = 0;
@@ -328,7 +328,7 @@ public class ClientUI extends UnicastRemoteObject implements ClientInterface {
 				if(!"".equals(addClient.tf_host.getText()) 
 						&& !"".equals(addClient.tf_nameClient.getText())){
 					host = addClient.tf_host.getText();
-					
+					isconnected = true;
 					
 					try {
 						server = (ServerInterface)Naming.lookup("rmi://"+host+":"+port+"/Remote" );
@@ -375,5 +375,9 @@ public class ClientUI extends UnicastRemoteObject implements ClientInterface {
 				System.exit(0);
 			}
 		});
+	}
+	@Override
+	public boolean checkConnect() throws RemoteException {
+		return isconnected;
 	}
 }

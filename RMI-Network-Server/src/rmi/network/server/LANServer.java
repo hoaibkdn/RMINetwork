@@ -1,50 +1,51 @@
 package rmi.network.server;
 
-import java.io.IOException;
+import java.net.MalformedURLException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import com.sun.corba.se.spi.activation.Server;
 
-public class LANServer{
+import rmi.network.interfaces.ClientInterface;
 
-	private ServerClientUI serverClientUI;
+public class LANServer extends Thread{
+
 
 	String host, nameClient;
-	static int port = 1990;
-	JFrame frame;
+	ClientInterface clientInterface;
+	private static ServerClientUI server;
+
+	int port = 1990;
 	public LANServer() throws RemoteException {
 		super();
-		serverClientUI = new ServerClientUI();
-		serverClientUI.initComponentServer();
-	}
-	
-	public static void main(String[] args) throws RemoteException {
-		ServerClientUI server;
-		//LANServer server;
-		try{
-			//server = new ServerClientUI();
-			server = new ServerClientUI();
-			server.initComponentServer();
-			LocateRegistry.createRegistry(port);
-			try {
-				Naming.bind("rmi://localhost:"+port+"/Remote", server);
-				//reg.list();
-				//System.out.println(List());
-				System.out.println("Server is running");
-			} catch (AlreadyBoundException e) {
-				e.printStackTrace();
-			}
-//			Registry registry = LocateRegistry.getRegistry(6000);
-//			registry.rebind("Connect", server);
-		}catch(IOException e){
-			JOptionPane.showMessageDialog(null, "A server is running...",
-					"Error", JOptionPane.ERROR_MESSAGE);
-			System.exit(0);
+		server = new ServerClientUI();
+		server.initComponentServer();
+		start();
+		while(true){
+			if(server.checkConnectRequest())
+				start();
 		}
 	}
 	
+	public static void main(String[] args) throws RemoteException {
+		LANServer lanServer = new LANServer();
+		
+	}
+
+	@Override
+	public void run() {
+		try {
+			LocateRegistry.createRegistry(port);
+		} catch (RemoteException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			Naming.bind("rmi://localhost:"+port+"/Remote", server);
+		} catch (MalformedURLException | AlreadyBoundException | RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+
 }

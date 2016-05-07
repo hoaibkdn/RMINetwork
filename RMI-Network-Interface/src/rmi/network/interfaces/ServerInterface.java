@@ -22,9 +22,10 @@ public interface ServerInterface extends Remote{
 	public void addClientListener(ClientInterface listener, String ip)
 			throws java.rmi.RemoteException;
 
-	public void removeClientListener(String ip) throws java.rmi.RemoteException;
+	public void removeClientListener(String ip) throws RemoteException;
 
 	public void showClientMessage(String ipAddress, String message)
 			throws RemoteException;
 	
+	public boolean checkConnectRequest() throws RemoteException;
 }

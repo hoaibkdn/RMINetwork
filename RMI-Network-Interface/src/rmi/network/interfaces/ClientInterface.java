@@ -26,4 +26,6 @@ public interface ClientInterface extends Remote {
 	void setTime(int status) throws RemoteException;
 	
 	public client getClient() throws RemoteException;
+	
+	public boolean checkConnect() throws RemoteException;
 }
